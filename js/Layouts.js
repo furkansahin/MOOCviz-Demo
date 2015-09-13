@@ -48,7 +48,8 @@ $(function () {
             refresh: 0,
             animate: true,
             infinite: true,
-            ungrabifyWhileSimulating: false
+            ungrabifyWhileSimulating: false,
+            fit: false
         },
 
         ready: function(){
@@ -82,7 +83,8 @@ function refreshCytoscape(graphData) { // on dom ready
                 'text-outline-width': 2,
                 'text-outline-color': 'black',
                 'border-width': 1,
-                'border-color': 'black'
+                'border-color': 'black',
+                'show-details': 'false'
 
             })
             .selector('#head')
@@ -101,15 +103,15 @@ function refreshCytoscape(graphData) { // on dom ready
             })
             .selector('#github')
             .css({
-                'height': 100,
-                'width': 100,
+                'height': 150,
+                'width': 150,
                 'background-color': 'rgb(255, 150, 150)',
                 'border-width': 0
             })
             .selector('#cv')
             .css({
-                'height': 80,
-                'width': 80,
+                'height': 100,
+                'width': 100,
                 'background-color': 'rgb(255, 200, 200)',
                 'border-width': 0
             })
@@ -126,7 +128,7 @@ function refreshCytoscape(graphData) { // on dom ready
                 'background-color': 'black',
                 'line-color': 'black',
                 'color': 'black',
-                'target-arrow-color': 'red',
+                'target-arrow-color': 'black',
                 'source-arrow-color': 'black',
                 'text-outline-color': 'black'
             })
@@ -142,11 +144,11 @@ function refreshCytoscape(graphData) { // on dom ready
             })
             .selector('#e1')
             .css({
-                'width': 2
+                'width': 2,
             })
             .selector('#e2')
             .css({
-                'width': 3
+                'width': 3,
             })
             .selector('#e4')
             .css({
@@ -154,7 +156,7 @@ function refreshCytoscape(graphData) { // on dom ready
             })
             .selector('#e5')
             .css({
-                'width': 2
+                'width': 2,
             }),
 
 
@@ -168,7 +170,8 @@ function refreshCytoscape(graphData) { // on dom ready
             refresh: 0,
             animate: true,
             infinite: true,
-            ungrabifyWhileSimulating: false
+            ungrabifyWhileSimulating: false,
+            fit: false
         },
         boxSelectionEnabled: true,
         motionBlur: true,
@@ -184,11 +187,20 @@ function refreshCytoscape(graphData) { // on dom ready
             cy.on('mouseover', 'node', function(evt){
 
                 this.style('border-width', 2);
-
+                this._private.style['show-details']= true;
+                cy.layout({
+                    name: 'preset',
+                    fit: false
+                });
             });
             cy.on('mouseout', 'node', function(evt){
 
                 this.style('border-width', 0);
+                this._private.style['show-details']= false;
+                cy.layout({
+                    name: 'preset',
+                    fit: false
+                });
 
             });
         }
